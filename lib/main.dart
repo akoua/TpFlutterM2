@@ -1,7 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:tp_contact_list/ourCard.dart';
+import 'package:provider/provider.dart';
+import 'package:tp_contact_list/Wrapper.dart';
+import 'package:tp_contact_list/service/authentification_service.dart';
+import 'package:tp_contact_list/widget/ourCard.dart';
 
-void main() {
+import 'firebase_options.dart';
+
+Future<void> main() async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -17,7 +27,10 @@ class MyApp extends StatelessWidget {
 
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: StreamProvider<User?>.value(
+        value: AuthFirebase().user,
+        initialData: null,
+        child: const Wrapper(),)
     );
   }
 }
@@ -53,11 +66,6 @@ class _MyHomePageState extends State<MyHomePage> {
           },
         )
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: _incrementCounter,
-      //   tooltip: 'Increment',
-      //   child: const Icon(Icons.add),
-      // ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

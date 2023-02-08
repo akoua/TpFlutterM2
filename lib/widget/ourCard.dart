@@ -12,13 +12,10 @@ class OurCard extends StatelessWidget {
   String myNumber = '+337';
 
   String _nounGenerator() {
-    //myName = WordPair.random().asPascalCase;
     return myName;
   }
 
   String _numberGenerator() {
-    // myNumber = '$myNumber$randomNumeric(9)';
-
     return '+33${Random().nextInt(1000000000)}';
   }
 
